@@ -1,6 +1,6 @@
 from keras.models import load_model
 from keras.preprocessing import image
-from keras.applications.vgg19 import preprocess_input, decode_predictions
+from keras.applications.inception_v3 import preprocess_input
 import numpy as np
 
 # Load the trained model
