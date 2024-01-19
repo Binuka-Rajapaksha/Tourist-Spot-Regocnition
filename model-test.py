@@ -1,18 +1,25 @@
+from flask import Flask, render_template, request, jsonify
 from keras.models import load_model
 from keras.preprocessing import image
 from keras.applications.inception_v3 import preprocess_input
 import numpy as np
+import os
+
+app = Flask(__name__)
 
 # Load the trained model
-model = load_model("tourist_places_model_02.keras")
+model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/tourist_places_model_02.keras'
+model = load_model(model_path)
+
 
 # Function to preprocess an image for prediction
 def preprocess_image(image_path):
-    img = image.load_img(image_path, target_size=(224, 224))
+    img = image.load_img(image_path, target_size=(299, 299))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
     return img_array
+
 
 # Function to make predictions
 def predict_class(image_path):
@@ -23,23 +30,6 @@ def predict_class(image_path):
     return predicted_class[0]
 
 
-# Load and preprocess a new image for testing
-
-# img_path = "ZAM_1577.JPG"
-
-img_path = 'UMS Dataset/Chancellor Hall/ZAM_1400.JPG'
-# img_path = 'UMS Dataset/Chancellor Tower/ZAM_1883.JPG'
-# img_path = 'UMS Dataset/Clock Tower/ZAM_1244.JPG'
-# img_path = 'UMS Dataset/Colorfull Stairway/ZAM_1346.JPG'
-# img_path = 'UMS Dataset/DKP Baru/ZAM_1980.JPG'
-# img_path = 'UMS Dataset/Library/ZAM_1559.JPG'
-# img_path = 'UMS Dataset/Recital Hall/ZAM_1660.JPG'
-# img_path = 'UMS Dataset/UMS Aquarium/ZAM_1784.JPG'
-# img_path = 'UMS Dataset/UMS Mosque/ZAM_2102.JPG'
-
-
-predicted_class = predict_class(img_path)
-
 # Map the predicted class index to the class label
 class_labels = [
     "Chancellor Hall", "Chancellor Tower", "Clock Tower",
@@ -47,5 +37,40 @@ class_labels = [
     "Recital Hall", "UMS Aquarium", "UMS Mosque"
 ]
 
-predicted_label = class_labels[predicted_class]
-print(f"The predicted class is: {predicted_label}")
+
+@app.route('/')
+def index():
+    return render_template('index_2.html')
+
+
+@app.route('/process_image', methods=['POST'])
+def process_image():
+    if 'image' not in request.files:
+        return jsonify({'result': 'No image provided'})
+
+    file = request.files['image']
+
+    if file.filename == '':
+        return jsonify({'result': 'No image selected'})
+
+    # Save the image temporarily
+    img_path = 'temp_image.jpg'
+    file.save(img_path)
+
+    try:
+        # Predict the class
+        predicted_class = predict_class(img_path)
+        predicted_label = class_labels[predicted_class]
+
+        return jsonify({'result': predicted_label})
+
+    except Exception as e:
+        return jsonify({'result': 'Error processing image'})
+
+    finally:
+        # Remove the temporary image file
+        os.remove(img_path)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

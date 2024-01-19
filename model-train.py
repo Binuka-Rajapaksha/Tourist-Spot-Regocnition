@@ -14,7 +14,7 @@ train_datagen = ImageDataGenerator(
 )
 
 # Load the dataset
-dataset_path = 'UMS Dataset'
+dataset_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Data Set/UMS Dataset'
 
 # training set
 train_generator = train_datagen.flow_from_directory(
@@ -36,7 +36,11 @@ validation_generator = train_datagen.flow_from_directory(
 
 
 # Base InceptionV3 model
-base_model = InceptionV3(weights='imagenet', include_top=False)
+base_model = InceptionV3(weights='imagenet', include_top=False, pooling='max')
+
+# Freeze the layers of the base model
+for layer in base_model.layers:
+    layer.trainable = False
 
 # Additional layers
 x = base_model.output
@@ -49,9 +53,7 @@ predictions = Dense(9, activation='softmax')(x)
 # Create the final model
 model = Model(inputs=base_model.input, outputs=predictions)
 
-# Freeze the layers of the base model
-for layer in base_model.layers:
-    layer.trainable = False
+# model.summary()
 
 # Compile the model
 model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
@@ -62,4 +64,4 @@ model.fit(train_generator, epochs=10, steps_per_epoch=len(train_generator), vali
 
 
 # Save the Model
-model.save('tourist_places_model_02.keras')
+model.save('C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/tourist_places_model_03.keras')
