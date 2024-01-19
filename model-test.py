@@ -4,7 +4,7 @@ from keras.applications.inception_v3 import preprocess_input
 import numpy as np
 
 # Load the trained model
-model = load_model("tourist_places_model_02.keras")
+model = load_model("C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/tourist_places_model_03.keras")
 
 # Function to preprocess an image for prediction
 def preprocess_image(image_path):
