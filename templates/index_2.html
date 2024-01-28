@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #imageForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #imageInput {
+            width: 200px;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tourist Spot Recognition</h2>
+    <form id="imageForm">
+        <label for="imageInput">Choose an image:</label>
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="button" onclick="processImage()">Submit</button>
+    </form>
+
+    <div id="output">
+        <strong>Result:</strong>
+        <br>
+        <span id="resultText"></span>
+    </div>
+
+    <script>
+        function processImage() {
+            var inputElement = document.getElementById('imageInput');
+            var file = inputElement.files[0];
+
+            if (file) {
+                var formData = new FormData();
+                formData.append('image', file);
+
+                fetch('/process_image', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultText').innerText = 'Predicted label: ' + data.result;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please choose an image before submitting.');
+            }
+        }
+    </script>
+</body>
+</html>
