@@ -14,7 +14,7 @@ train_datagen = ImageDataGenerator(
 )
 
 # Load the dataset
-dataset_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Data Set/UMS Dataset'
+dataset_path = 'UMS Dataset'
 
 # training set
 train_generator = train_datagen.flow_from_directory(
@@ -36,11 +36,7 @@ validation_generator = train_datagen.flow_from_directory(
 
 
 # Base InceptionV3 model
-base_model = InceptionV3(weights='imagenet', include_top=False, pooling='max')
-
-# Freeze the layers of the base model
-for layer in base_model.layers:
-    layer.trainable = False
+base_model = InceptionV3(weights='imagenet', include_top=False)
 
 # Additional layers
 x = base_model.output
@@ -53,7 +49,9 @@ predictions = Dense(9, activation='softmax')(x)
 # Create the final model
 model = Model(inputs=base_model.input, outputs=predictions)
 
-# model.summary()
+# Freeze the layers of the base model
+for layer in base_model.layers:
+    layer.trainable = False
 
 # Compile the model
 model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
