@@ -14,7 +14,7 @@ train_datagen = ImageDataGenerator(
 )
 
 # Load the dataset
-dataset_path = 'UMS Dataset'
+dataset_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Data Set/UMS Dataset'
 
 # training set
 train_generator = train_datagen.flow_from_directory(
@@ -62,4 +62,4 @@ model.fit(train_generator, epochs=10, steps_per_epoch=len(train_generator), vali
 
 
 # Save the Model
-model.save('C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/tourist_places_model_03.keras')
+# model.save('C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/tourist_places_model_03.keras')

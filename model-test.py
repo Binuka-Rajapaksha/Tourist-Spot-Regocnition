@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 
 # Load the trained model
-model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/tourist_places_InceptionV3.keras'
+model_path = 'Model/tourist_places_InceptionV3.keras'
 model = load_model(model_path)
 
 
