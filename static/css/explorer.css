@@ -1,0 +1,239 @@
+/* Imports */
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+:root {
+  /* color palate */
+  --theme: #454cad;
+  --dark-text: #5f6982;
+}
+
+.main {
+  background: url(/static/images/Background/Sigiriya.png) no-repeat center center/cover;
+  min-height: 800px;
+  border-radius: 0 0 50px 50px;
+}
+
+
+.h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--theme);
+  margin-bottom: 0;
+  text-align: center;
+}
+.p {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: var(--dark-text);
+  text-align: center;
+}
+
+.submit-div{
+  text-align: center;
+  margin-top: 20px;  
+}
+
+.submit {
+  background-color: var(--primary-color); 
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.submit:hover {
+  background-color:#424242; 
+}
+
+.upload-div{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Upload Demo */
+.uploader {
+  display: block;
+  clear: both;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+
+  input {
+    visibility: hidden;
+  }
+
+  label {
+    float: left;
+    clear: both;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    background: #00000088;
+    border-radius: 7px;
+    border: 3px solid #424242;
+    transition: all .2s ease;
+    user-select: none;
+    font-family:s"Roboto", sans-serif;
+    font-size:large ;
+
+    &:hover {
+      border-color: var(--theme);
+    }
+    &.hover {
+      border: 3px solid var(--theme);
+      box-shadow: inset 0 0 0 6px #eee;
+      
+      #start {
+        i.fa {
+          transform: scale(0.8);
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+
+  #start {
+    float: left;
+    clear: both;
+    width: 100%;
+    &.hidden {
+      display: none;
+    }
+    i.fa {
+      font-size: 50px;
+      margin-bottom: 1rem;
+      transition: all .2s ease-in-out;
+    }
+  }
+  #response {
+    float: left;
+    clear: both;
+    width: 100%;
+    &.hidden {
+      display: none;
+    }
+    #messages {
+      margin-bottom: .5rem;
+    }
+  }
+
+  #file-image {
+    display: inline;
+    margin: 0 auto .5rem auto;
+    width: auto;
+    height: auto;
+    max-width: 180px;
+    &.hidden {
+      display: none;
+    }
+  }
+  
+  #file-drag {
+    padding: 10%;
+    border: 2px dashed #999; 
+    cursor: pointer;
+  }
+  
+  #notimage {
+    display: block;
+    float: left;
+    clear: both;
+    width: 100%;
+    &.hidden {
+      display: none;
+    }
+  }
+
+  progress, .progress {
+    appearance: none;
+    display: inline;
+    clear: both;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 180px;
+    height: 8px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #eee;
+    overflow: hidden;
+  }
+
+  .progress[value]::-webkit-progress-bar {
+    border-radius: 4px;
+    background-color: #eee;
+  }
+
+  .progress[value]::-webkit-progress-value {
+    background: linear-gradient(to right, darken(var(--theme),8%) 0%, var(--theme) 50%);
+    border-radius: 4px; 
+  }
+  .progress[value]::-moz-progress-bar {
+    background: linear-gradient(to right, darken(var(--theme),8%) 0%, var(--theme) 50%);
+    border-radius: 4px; 
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  div {
+    margin: 0 0 .5rem 0;
+    color: var(--dark-text);
+  }
+  .btn {
+    display: inline-block;
+    margin: .5rem .5rem 1rem .5rem;
+    clear: both;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: initial;
+    border: none;
+    border-radius: .2rem;
+    outline: none;
+    padding: 0 1rem;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    background: var(--theme);
+    border-color: var(--theme);
+    cursor: pointer;
+  }
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* showcase CONTENT */
+.exolprer-content {
+  text-align: center;
+  font-size: 25px;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+
+
+
+
+

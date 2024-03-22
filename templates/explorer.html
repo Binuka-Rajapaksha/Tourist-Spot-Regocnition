@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Css Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      media=" screen and (max-width:768px)"
+      href="/static/css/mobile.css"
+    />
+    <link rel="stylesheet" href="/static/css/explorer.css" />
+    <!-- unicons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!-- favicon -->
+    <link rel="icon" href="/static/images/icons/Vector.png" />
+
+    <!-- script tag -->
+    <script defer src="/static/js/script.js"></script>
+
+    <!-- ScrollReveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- swiper js -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+    <!-- Title -->
+    <title>2rism</title>
+  </head>
+  <body>
+    <!-- Showcase -->
+    <main class="main" id="home">
+      <!-- Header -->
+      <header class="header">
+        <!-- logo -->
+        <div class="logo">
+          <a href="Index.html">
+          <img src="/static/images/Logo/logo.svg" alt="2rism" />
+        </a>
+        </div>
+
+        <!-- navbar -->
+        <nav class="navbar">
+          <ul class="navlists">
+            <li class="navlist"><a href="Index.html">Home</a></li>
+            <li class="navlist"><a href="explorer.html">Discover</a></li>
+            <li class="navlist"><a href="#destinations">Destinations</a></li>
+            <li class="navlist"><a href="#activities">About Us</a></li>
+            <li class="navlist"><a href="#contact">Contact</a></li>
+            <li class="navlist"><a href="#tours">Help</a></li>
+          </ul>
+        </nav>
+
+        <!-- user || navigator -->
+        <div class="user-profile">
+          <div class="profile-name">
+            <h2>
+              <span class="hello"> Hello, </span>
+              <span class="indiviual-name"> Savin Dinusara </span>
+            </h2>
+          </div>
+
+          <div class="profile-pic">
+            <img
+              src="/static/images/ProfilePic/Sandeep.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </header>
+
+      <!-- showcase-content -->
+      <div class="showcase-content">
+        <h2 class="h2">Tourists Spot Recognizer</h2>
+        <p class="lead p">Explore world<b> Without limitations</b></p>
+
+        <!-- Upload  -->
+        <div class="upload-div">
+          <form id="file-upload-form" class="uploader">
+            <input
+              id="file-upload"
+              type="file"
+              name="fileUpload"
+              accept="image/*"
+            />
+
+            <label for="file-upload" id="file-drag">
+              <img id="file-image" src="#" alt="Preview" class="hidden" />
+              <div id="start">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <div>Select a file or drag here</div>
+                <div id="notimage" class="hidden">Please select an image</div>
+              </div>
+              <div id="response" class="hidden">
+                <div id="messages"></div>
+                <progress class="progress" id="file-progress" value="0">
+                  <span>0</span>%
+                </progress>
+              </div>
+            </label>
+          </form>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submit-div">
+<!--          <input type="submit" class="submit" value="Submit" onclick="processImage()"/>-->
+          <button type="button" class="submit" onclick="processImage()">Submit</button>
+        </div>
+
+        <div id="output">
+          <br>
+          <strong>Result:</strong>
+          <br>
+          <span id="resultText"></span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Hotels And Restaurants -->
+    <section class="hotel-restaurants" id="restaurants"></section>
+
+    <!-- about -->
+    <section id="About">
+      <div class="about-content">
+        <h2>About US</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a
+          sapien justo. Nulla facilisis tristique imperdiet. Nullam a placerat
+          odio. Sed in ex augue. Aliquam porta consectetur lorem sit amet
+          ultrices. Class aptent taciti sociosqu ad litora torquent per conubia
+          nostra, per inceptos himenaeos.
+        </p>
+
+        <div class="section-button hotel-button">
+          Read More <img src="/static/images/icons/bleft.png" alt="" />
+        </div>
+      </div>
+
+      <div class="about-img">
+        <img src="/static/images/about img.png" alt="" width="556" height="488" />
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <img src="/static/images/Logo/logoblack.svg" alt="" />
+            <p>
+              We always make our customers happy by providing as many choises as
+              possible
+            </p>
+            <div class="footer-social-icons">
+              <img src="/static/images/icons/facebook.png" alt="" />
+              <img src="/static/images/icons/twitter.png" alt="" />
+              <img src="/static/images/icons/instagram.png" alt="" />
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h3>About</h3>
+            <ul>
+              <li><a href="">About Us</a></li>
+              <li><a href="">Features</a></li>
+              <li><a href="">News</a></li>
+              <li><a href="">Menu</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="">why 2rism</a></li>
+              <li><a href="">Partner with us</a></li>
+              <li><a href="">FAQ</a></li>
+              <li><a href="">Blog</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="">Account</a></li>
+              <li><a href="">Support Center</a></li>
+              <li><a href="">Feedback</a></li>
+              <li><a href="">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>
+              Subscribe on our destination review <br />
+              newsletters
+            </h3>
+            <form>
+              <div class="form-section">
+                <img src="/static/images/icons/messagefooter.png" alt="" />
+                <label for="email">
+                  Your Email
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="exp - abc@gmail.com "
+                  />
+                </label>
+              </div>
+              <button type="submit">
+                <img src="/static/images/icons/arrowleft.png" alt="" />
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="toggleOn"><i class="uil uil-align-center-alt"></i></div>
+    <div class="toggleClose"><i class="uil uil-multiply"></i></div>
+
+    <script src="/static/js/explorer.js"></script>
+    <script>
+        function processImage() {
+            var inputElement = document.getElementById('file-upload');
+            var file = inputElement.files[0];
+
+            if (file) {
+                var formData = new FormData();
+                formData.append('image', file);
+
+                fetch('/process_image', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultText').innerText = data.result;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please choose an image before submitting.');
+            }
+        }
+    </script>
+  </body>
+</html>
