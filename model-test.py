@@ -8,13 +8,13 @@ import os
 app = Flask(__name__)
 
 # Load the trained model
-model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/Our Dataset/InceptionV3_model02.keras'
+model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/Our Dataset/InceptionV3_final.keras'
 model = load_model(model_path)
 
 
 # Function to preprocess an image for prediction
 def preprocess_image(image_path):
-    img = image.load_img(image_path, target_size=(299, 299))
+    img = image.load_img(image_path, target_size=(512, 512))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
@@ -22,7 +22,7 @@ def preprocess_image(image_path):
 
 
 # Function to make predictions with thresholding
-def predict_class(image_path, threshold=0.75):
+def predict_class(image_path, threshold=0.85):
     img_array = preprocess_image(image_path)
     predictions = model.predict(img_array)
 
@@ -40,15 +40,22 @@ def predict_class(image_path, threshold=0.75):
 
 
 # Map the predicted class index to the class label
-class_labels = ['Adam_s Peak', 'Bentota Beach', 'Clock Tower Jaffna', 'Clock Tower Kandy', 'Colombo National Museum',
-                'Dematamal Viharaya', 'Galle Light House', 'Gampola Kingdom_s Ambuluwawa Tower', 'Hikkaduwa Beach',
-                'Lotus Tower', 'Maligawila Buddha Statue', 'Mirissa Beach', 'Negombo Beach', 'Nine Arch Bridge',
-                'Pidurangala Rock', 'Ranmasu Uyana', 'Ravana Falls', 'Ruwanwelisaya', 'Sigiriya Rock', 'Thuparamaya Dagaba']
+class_labels = ['Abhayagiriya', 'Adam_s Peak', 'Colombo Municipal Council', 'Colombo National Museum',
+                'Galle Light House', 'Gampola Kingdom_s Ambuluwawa Tower', 'Lotus Tower', 'Maligawila Buddha Statue',
+                'Nine Arch Bridge', 'Polonnaruwa watadageya', 'Ranmasu Uyana', 'Red Mosque', 'Ruwanwelisaya',
+                'Sigiriya Rock', 'Temple of Tooth Relic', 'Thuparamaya Dagaba']
+
+
+# class_labels = ['Chancellor Hall','Chancellor Tower','Clock Tower','Colorfull Stairway','DKP Baru','Library','Recital Hall','UMS Aquarium','UMS Mosque']
 
 
 @app.route('/')
+def home():
+    return render_template('Index.html')
+
+@app.route('/explorer.html/')
 def index():
-    return render_template('index_2.html')
+    return render_template('explorer.html')
 
 
 @app.route('/process_image', methods=['POST'])
@@ -68,7 +75,6 @@ def process_image():
     try:
         # Predict the class with thresholding
         predicted_class = predict_class(img_path)
-
 
         if predicted_class == -1:
             return jsonify({'result': 'Unknown place'})
