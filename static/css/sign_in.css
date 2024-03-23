@@ -74,11 +74,12 @@
     margin-bottom: -0.2em;
   }
 
-  .screen-1 .password label {
+  .screen-1 .password label, .screen-1 .confirm_password label{
     font-family: 'YourNewFont', sans-serif; /* Replace 'YourNewFont' with the desired font family */
     font-family:"Roboto", sans-serif;
-}
-  .screen-1 .password {
+  }
+
+  .screen-1 .password, .screen-1 .confirm_password {
     background: white;
     box-shadow: 0 0 0.01em #e6e9f9;
     padding: 1em;
@@ -88,29 +89,36 @@
     border-radius: 20px;
     color: #4d4d4d;
   }
-  .screen-1 .password input {
+  
+  .screen-1 .confirm_password input, .screen-1 .password input {
     outline: none;
     border: none;
   }
-  .screen-1 .password input::-moz-placeholder {
+  
+  .screen-1 .confirm_password input::-moz-placeholder, .screen-1 .password input::-moz-placeholder {
     color: black;
     font-size: 0.9em;
   }
-  .screen-1 .password input:-ms-input-placeholder {
+  
+  .screen-1 .confirm_password input:-ms-input-placeholder, .screen-1 .password input:-ms-input-placeholder {
     color: black;
     font-size: 0.9em;
   }
-  .screen-1 .password input::placeholder {
+  
+  .screen-1 .confirm_password input::placeholder, .screen-1 .password input::placeholder {
     color: black;
     font-size: 0.9em;
   }
-  .screen-1 .password ion-icon {
+  
+  .screen-1 .confirm_password ion-icon, .screen-1 .password ion-icon {
     color: #4d4d4d;
     margin-bottom: -0.2em;
   }
-  .screen-1 .password .show-hide {
+  
+  .screen-1 .confirm_password .show-hide, .screen-1 .password .show-hide {
     margin-right: -5em;
   }
+  
   .screen-1 .login {
     padding: 1em;
     background: #3e4684;
@@ -126,7 +134,8 @@
     gap: 14em;
     padding-bottom: 10em;
   }
-  .screen-1 .footer span {
+  .screen-1 .footer a {
+    text-decoration: none;
     cursor: pointer;
     color: #e6e9f9;
   }
