@@ -87,7 +87,7 @@ img {
 /* main */
 
 .main {
-  background: url(/static/images/Background/Gangarama_3.png) no-repeat center center/cover;
+  background: url(../images/Background/Gangarama_3.png) no-repeat center center/cover;
   min-height: 800px;
   border-radius: 0 0 50px 50px;
 }

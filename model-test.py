@@ -1,11 +1,20 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from keras.models import load_model
 from keras.preprocessing import image
 from keras.applications.inception_v3 import preprocess_input
 import numpy as np
 import os
+import MySQLdb
+import re
 
 app = Flask(__name__)
+
+# MySQL connection parameters
+mysql_host = 'localhost'
+mysql_user = 'root'
+mysql_password = 'rootpassword'  # If you didn't change the default password, just put ''
+mysql_database = 'userdb'  # Name of the database
+
 
 # Load the trained model
 model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/Our Dataset/InceptionV3_final.keras'
@@ -46,12 +55,86 @@ class_labels = ['Abhayagiriya', 'Adam_s Peak', 'Colombo Municipal Council', 'Col
                 'Sigiriya Rock', 'Temple of Tooth Relic', 'Thuparamaya Dagaba']
 
 
-# class_labels = ['Chancellor Hall','Chancellor Tower','Clock Tower','Colorfull Stairway','DKP Baru','Library','Recital Hall','UMS Aquarium','UMS Mosque']
-
-
 @app.route('/')
+@app.route('/login.html', methods=['GET', 'POST'])
+def login():
+    message = ''
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+
+        email = request.form['email']
+        password = request.form['password']
+
+        try:
+            # Establish a connection to the MySQL server
+            with MySQLdb.connect(host=mysql_host, user=mysql_user, password=mysql_password,
+                                 database=mysql_database) as connection:
+                # Create a cursor object to execute queries
+                with connection.cursor() as cursor:
+
+                    cursor.execute('SELECT * FROM user WHERE email = %s AND password = %s', (email, password,))
+
+                    user = cursor.fetchone()
+
+                    if user:
+                        message = 'Logged in successfully !'
+                        return render_template('Index.html', message=message)
+                    else:
+                        message = 'Please enter correct email / password !'
+
+        except MySQLdb.Error as e:
+            # Handle MySQL errors
+            message = f"Error accessing MySQL: {e}"
+
+    print(message)
+
+    return render_template('login.html', message=message)
+
+
+@app.route('/Sign_up.html', methods=['GET', 'POST'])
+def register():
+    signup_message = ''
+    if request.method == 'POST' and 'user_name' in request.form and 'password' in request.form and 'email' in request.form:
+        user_name = request.form['user_name']
+        password = request.form['password']
+        email = request.form['email']
+
+        try:
+            # Establish a connection to the MySQL server
+            with MySQLdb.connect(host=mysql_host, user=mysql_user, password=mysql_password,
+                                 database=mysql_database) as connection:
+                # Create a cursor object to execute queries
+                with connection.cursor() as cursor:
+                    # Check if the email already exists in the database
+                    cursor.execute('SELECT * FROM user WHERE email = %s', (email,))
+                    account = cursor.fetchone()
+
+                    if account:
+                        signup_message = 'Account already exists !'
+                    elif not user_name or not password or not email:
+                        signup_message = 'Please fill out the form !'
+                    elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+                        signup_message = 'Invalid email address !'
+
+                    else:
+                        # Insert the new user into the database
+                        cursor.execute('INSERT INTO user VALUES (NULL, %s, %s, %s)', (user_name, email, password,))
+                        connection.commit()
+                        signup_message = 'You have successfully registered !'
+                        return render_template('Index.html', message=signup_message)
+        except MySQLdb.Error as e:
+            # Handle MySQL errors
+            signup_message = f"Error accessing MySQL: {e}"
+
+    elif request.method == 'POST':
+        signup_message = 'Please fill out the form !'
+
+    return render_template('Sign_up.html', message=signup_message)
+
+
+@app.route('/Index.html')
 def home():
     return render_template('Index.html')
+
 
 @app.route('/explorer.html/')
 def index():
