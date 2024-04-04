@@ -12,12 +12,12 @@ app = Flask(__name__)
 # MySQL connection parameters
 mysql_host = 'localhost'
 mysql_user = 'root'
-mysql_password = 'rootpassword'  # If you didn't change the default password, just put ''
+mysql_password = ''  # If you didn't change the default password, just put ''
 mysql_database = 'userdb'  # Name of the database
 
 
 # Load the trained model
-model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/Our Dataset/InceptionV3_final.keras'
+model_path = 'E:\InceptionV3_final.keras'
 model = load_model(model_path)
 
 

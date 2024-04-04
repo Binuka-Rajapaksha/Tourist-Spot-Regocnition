@@ -46,8 +46,8 @@
         <!-- logo -->
         <div class="logo">
           <a href="Index.html">
-          <img src="../static/images/Logo/logo.svg" alt="2rism" />
-        </a>
+            <img src="../static/images/Logo/logo.svg" alt="2rism" />
+          </a>
         </div>
 
         <!-- navbar -->
@@ -72,10 +72,7 @@
           </div>
 
           <div class="profile-pic">
-            <img
-              src="../static/images/ProfilePic/Sandeep.png"
-              alt=""
-            />
+            <img src="../static/images/ProfilePic/Sandeep.png" alt="" />
           </div>
         </div>
       </header>
@@ -114,18 +111,89 @@
 
         <!-- Submit Button -->
         <div class="submit-div">
-<!--          <input type="submit" class="submit" value="Submit" onclick="processImage()"/>-->
-          <button type="button" class="submit" onclick="processImage()">Submit</button>
+          <!--          <input type="submit" class="submit" value="Submit" onclick="processImage()"/>-->
+          <button type="button" class="submit" onclick="processImage()">
+            Submit
+          </button>
         </div>
 
-        <div id="output">
-          <br>
-          <strong>Result:</strong>
-          <br>
-          <span id="resultText"></span>
-        </div>
       </div>
     </main>
+
+    <!-- Results Container -->
+    <div id="results-container" class="results-container" style="display: none;">
+      <div class="results">
+        <div class="results-header">
+          <!-- <h2>Results</h2>  -->
+          <br />
+          <span id="resultText2"></span>
+          <br />
+          <button id="close-results" class="close-results" onclick="closeResults()">
+            <i class="uil uil-multiply"></i>
+          </button>
+        </div>
+
+        <div>
+          <div class="results-content">
+            <!-- <div class="results-image">
+              <img id="results-image" src="../static/images/Places/Temple of Tooth Relic.jpg" alt="Results" />
+            </div> -->
+            <div class="results-text">
+              <!-- <h3 id="results-title">Title</h3>
+              <p id="results-description">Description</p> -->
+              <div class="place-details">
+                <p><strong>Place Name  :</strong> <span id="place-name">Place Name</span></p>
+                <p><strong>Address  :</strong> <span id="address">Address</span></p>
+                <p><strong>Phone Number  :</strong> <span id="phone-number">1234567890</span></p>
+                <p><strong>Website  :</strong> <a id="website" href="#" target="_blank">example.com</a></p>
+                <p><strong>Rating  :</strong><span id="rating">5.0</span></p>
+              </div>
+            </div>
+
+            <div class="sentiment-container">
+              <div class="sentiment">
+                <div class="outer">
+                  <div class="inner">
+                    <div id="number">
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="190px" height="190px">
+                <defs>
+                   <linearGradient id="GradientColor">
+                      <stop offset="0%" stop-color="#e91e63" />
+                      <stop offset="100%" stop-color="#673ab7" />
+                   </linearGradient>
+                </defs>
+                <circle cx="95" cy="95" r="85" stroke-linecap="round" />
+              </svg>
+              <div class="sentiment-title"><p><strong>Sentiment Score</strong></p></div>
+            </div>
+          
+          </div>
+        </div>
+        
+        <div class="map-container">
+          <p><strong>Location</strong></p>
+          <div id="map"></div>
+        </div>
+        
+
+        <!-- <div class="results-content">
+          <div class="results-image">
+            <img id="results-image" src="#" alt="Results" />
+          </div>
+          <div class="results-text">
+            <h3 id="results-title">Title</h3>
+            <p id="results-description">Description</p>
+            <a id="results-link" href="#" target="_blank">More Info</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
 
     <!-- Hotels And Restaurants -->
     <section class="hotel-restaurants" id="restaurants"></section>
@@ -148,7 +216,12 @@
       </div>
 
       <div class="about-img">
-        <img src="../static/images/about img.png" alt="" width="556" height="488" />
+        <img
+          src="../static/images/about img.png"
+          alt=""
+          width="556"
+          height="488"
+        />
       </div>
     </section>
 
@@ -227,30 +300,6 @@
     <div class="toggleClose"><i class="uil uil-multiply"></i></div>
 
     <script src="../static/js/explorer.js"></script>
-    <script>
-        function processImage() {
-            var inputElement = document.getElementById('file-upload');
-            var file = inputElement.files[0];
-
-            if (file) {
-                var formData = new FormData();
-                formData.append('image', file);
-
-                fetch('/process_image', {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('resultText').innerText = data.result;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            } else {
-                alert('Please choose an image before submitting.');
-            }
-        }
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNiDkCUEEDWpE0yY-yyhD71f0JA3Hoyk0&libraries=places"></script>
   </body>
 </html>

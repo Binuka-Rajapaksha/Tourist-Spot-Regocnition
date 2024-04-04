@@ -1,7 +1,10 @@
-/* Imports */
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+/*-----------------------------------*\
+ * explorer.css
+\*-----------------------------------*/
 
+/* Imports */
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 :root {
   /* color palate */
@@ -10,11 +13,11 @@
 }
 
 .main {
-  background: url(../images/Background/Sigiriya.png) no-repeat center center/cover;
+  background: url(../images/Background/Sigiriya.png) no-repeat center
+    center/cover;
   min-height: 800px;
   border-radius: 0 0 50px 50px;
 }
-
 
 .h2 {
   font-family: "Roboto", sans-serif;
@@ -31,13 +34,13 @@
   text-align: center;
 }
 
-.submit-div{
+.submit-div {
   text-align: center;
-  margin-top: 20px;  
+  margin-top: 20px;
 }
 
 .submit {
-  background-color: var(--primary-color); 
+  background-color: var(--primary-color);
   color: #fff;
   padding: 10px 20px;
   font-size: 1.6rem;
@@ -48,17 +51,19 @@
 }
 
 .submit:hover {
-  background-color:#424242; 
+  background-color: #424242;
 }
 
-.upload-div{
+.upload-div {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Upload Demo */
+/*-----------------------------------*\
+ * upload Demo
+\*-----------------------------------*/
 .uploader {
   display: block;
   clear: both;
@@ -80,10 +85,10 @@
     background: #00000088;
     border-radius: 7px;
     border: 3px solid #424242;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     user-select: none;
-    font-family:s"Roboto", sans-serif;
-    font-size:large ;
+    font-family: s "Roboto", sans-serif;
+    font-size: large;
 
     &:hover {
       border-color: var(--theme);
@@ -91,7 +96,7 @@
     &.hover {
       border: 3px solid var(--theme);
       box-shadow: inset 0 0 0 6px #eee;
-      
+
       #start {
         i.fa {
           transform: scale(0.8);
@@ -111,7 +116,7 @@
     i.fa {
       font-size: 50px;
       margin-bottom: 1rem;
-      transition: all .2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
   }
   #response {
@@ -122,13 +127,13 @@
       display: none;
     }
     #messages {
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
   }
 
   #file-image {
     display: inline;
-    margin: 0 auto .5rem auto;
+    margin: 0 auto 0.5rem auto;
     width: auto;
     height: auto;
     max-width: 180px;
@@ -136,13 +141,13 @@
       display: none;
     }
   }
-  
+
   #file-drag {
     padding: 10%;
-    border: 2px dashed #999; 
+    border: 2px dashed #999;
     cursor: pointer;
   }
-  
+
   #notimage {
     display: block;
     float: left;
@@ -153,7 +158,8 @@
     }
   }
 
-  progress, .progress {
+  progress,
+  .progress {
     appearance: none;
     display: inline;
     clear: both;
@@ -173,12 +179,20 @@
   }
 
   .progress[value]::-webkit-progress-value {
-    background: linear-gradient(to right, darken(var(--theme),8%) 0%, var(--theme) 50%);
-    border-radius: 4px; 
+    background: linear-gradient(
+      to right,
+      darken(var(--theme), 8%) 0%,
+      var(--theme) 50%
+    );
+    border-radius: 4px;
   }
   .progress[value]::-moz-progress-bar {
-    background: linear-gradient(to right, darken(var(--theme),8%) 0%, var(--theme) 50%);
-    border-radius: 4px; 
+    background: linear-gradient(
+      to right,
+      darken(var(--theme), 8%) 0%,
+      var(--theme) 50%
+    );
+    border-radius: 4px;
   }
 
   input[type="file"] {
@@ -186,12 +200,12 @@
   }
 
   div {
-    margin: 0 0 .5rem 0;
+    margin: 0 0 0.5rem 0;
     color: var(--dark-text);
   }
   .btn {
     display: inline-block;
-    margin: .5rem .5rem 1rem .5rem;
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
     clear: both;
     font-family: inherit;
     font-weight: 700;
@@ -199,7 +213,7 @@
     text-decoration: none;
     text-transform: initial;
     border: none;
-    border-radius: .2rem;
+    border-radius: 0.2rem;
     outline: none;
     padding: 0 1rem;
     height: 36px;
@@ -213,7 +227,6 @@
   }
 }
 
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -225,7 +238,11 @@
   }
 }
 
-/* showcase CONTENT */
+
+
+/*-----------------------------------*\
+ * Showcase Content
+\*-----------------------------------*/
 .exolprer-content {
   text-align: center;
   font-size: 25px;
@@ -237,3 +254,162 @@
 
 
 
+/*-----------------------------------*\
+ * Results Preview
+\*-----------------------------------*/
+
+.results-container {
+  background-color: #79797c4f;
+  margin: 50px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.results-header h2 {
+  font-size: 40px;
+  text-align: center;
+}
+
+#resultText2 {
+  font-size: 30px;
+  text-align: center;
+  display: block;
+}
+
+.results-container {
+  position: relative;
+}
+
+.close-results {
+  position: absolute;
+  top: 1px;
+  right: 50px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-results i {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #162938;
+  font-size: 2em;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.results-content{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.results-text {
+  margin-left: 50px;
+}
+
+.place-details p{
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  line-height: 2;
+
+}
+
+.map-container p {
+  text-align: left;
+  text-indent: 50px;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+#map {
+  height: 300px;
+  margin: 40px;
+  margin-top: 10px;
+  border-radius: 20px;
+}
+
+
+/*-----------------------------------*\
+ * Sentiment Preview
+\*-----------------------------------*/
+
+.sentiment-container{
+  position: absolute;
+  top:80px;
+  right: 200px;
+}
+
+.sentiment{
+  width: 190px;
+  height: 190px;
+  display: flex;
+  margin-right: 10px;
+}
+
+.outer{
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  box-shadow:6px 6px 6px -1px rgba(0,0,0,0.15),
+            -6px -6px 10px -1px rgba(255,255,255,0.7);
+
+  padding: 20px;
+}
+
+.inner{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 4px 4px 4px -1px rgba(0, 0, 0, 0.2),
+              inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+              -0.5px -0.5px 0px rgba(255, 255, 255,1),
+              0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+              0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+}
+
+#number{
+  font-weight: 600;
+  color: #555;
+  font-size:25px;
+}
+
+circle{
+  fill: none;
+  stroke:url(#GradientColor);
+  stroke-width: 20px;
+  stroke-dasharray: 530px;
+  stroke-dashoffset: 530px;
+  animation: anim 2s linear forwards;
+}
+
+svg{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes anim {
+ 100%{
+  stroke-dashoffset: var(--dash-offset, 424px);
+ }
+
+}
+
+.sentiment-title p{
+  margin-top: 10px;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}
