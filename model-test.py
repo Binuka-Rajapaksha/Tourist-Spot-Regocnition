@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from sentiment import preprocessing, vectorizer, get_prediction
+from logger import logging
 from keras.models import load_model
 from keras.preprocessing import image
 from keras.applications.inception_v3 import preprocess_input
@@ -8,6 +10,8 @@ import MySQLdb
 import re
 
 app = Flask(__name__)
+
+logging.info('Flask server started')
 
 # MySQL connection parameters
 mysql_host = 'localhost'
@@ -171,6 +175,72 @@ def process_image():
     finally:
         # Remove the temporary image file
         os.remove(img_path)
+
+
+data = dict()
+reviews = []
+positive = 0
+negative = 0
+
+@app.route("/", methods = ['post'])
+def my_post():
+    text = request.form['text']
+    logging.info(f'Text : {text}')
+
+    preprocessed_txt = preprocessing(text)
+    logging.info(f'Preprocessed Text : {preprocessed_txt}')
+
+    vectorized_txt = vectorizer(preprocessed_txt)
+    logging.info(f'Vectorized Text : {vectorized_txt}')
+
+    prediction = get_prediction(vectorized_txt)
+    logging.info(f'Prediction : {prediction}')
+
+    if prediction == 'negative':
+        global negative
+        negative += 1
+    else:
+        global positive
+        positive += 1
+    
+    reviews.insert(0, text)
+    return redirect(request.url)
+
+@app.route("/reviews_sentiment", methods=['POST']) 
+def reviews_sentiment():
+    text = request.json['text']
+    logging.info(f'Text : {text}')
+
+    preprocessed_txt = preprocessing(text)
+    vectorized_txt = vectorizer(preprocessed_txt)
+    prediction = get_prediction(vectorized_txt)
+
+    if prediction == 'negative':
+        global negative
+        negative += 1
+    else:
+        global positive
+        positive += 1
+
+    reviews.insert(0, text)
+    logging.info(f'All Negative: {negative} All Positive:{positive}')
+    
+    # Return sentiment counts along with the response
+    return jsonify({'positive': positive, 'negative': negative})
+
+@app.route("/get_global_positive_count", methods=['GET'])
+def get_global_positive_count():
+    global positive
+    return jsonify({'positive_count': positive})
+
+@app.route("/clear_global_variables", methods=['POST'])
+def clear_global_variables():
+    global positive, negative, reviews
+    positive = 0
+    negative = 0
+    reviews = []
+    logging.info('Global variables cleared')
+    return jsonify({'message': 'Global variables cleared'})
 
 
 if __name__ == '__main__':

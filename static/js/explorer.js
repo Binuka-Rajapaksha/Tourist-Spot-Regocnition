@@ -154,6 +154,23 @@ function processImage() {
   var inputElement = document.getElementById("file-upload");
   var file = inputElement.files[0];
 
+  // Call the route to clear global variables
+  fetch("/clear_global_variables", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        // Clearing successful, proceed with fetching new location
+        fetchLocation(keyword);
+      } else {
+        console.error("Failed to clear global variables");
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+
   if (file) {
     var formData = new FormData();
     formData.append("image", file);
@@ -180,6 +197,10 @@ function processImage() {
           behavior: "smooth",
           block: "start",
         });
+
+        // Reset animation parameters
+        resetAnimation();
+
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -188,6 +209,9 @@ function processImage() {
     alert("Please choose an image before submitting.");
   }
 }
+
+
+
 
 // script.js
 let map;
@@ -240,6 +264,10 @@ function showLocationOnMap(data) {
   getPlaceDetails();
 }
 
+
+
+
+
 // Function to Get Place Details
 function getPlaceDetails() {
   if (!selectedPlaceId) {
@@ -259,10 +287,10 @@ function getPlaceDetails() {
     .catch((error) => console.error("Error fetching place details:", error));
 }
 
+let positiveReviewsCount = 0;
+
 // Function to Get Place Details
 function displayPlaceDetails(placeDetails) {
-  // Display detailed place information
-
   console.log("Place Details API Response:", placeDetails);
 
   const placeNameElement = document.getElementById("place-name");
@@ -283,53 +311,85 @@ function displayPlaceDetails(placeDetails) {
   reviews.forEach((review) => {
     const reviewText = review.originalText.text;
     sendReviewToBackend(reviewText); // Send each review text to the backend
+    updatePositiveReviewsCount(); // Update the positive reviews count
+    setTimeout(updateSentimentAnimation, 1000);
   });
-
-  detailsContainer.appendChild(reviewsContainer);
-}
-
-
-
-
-// Function to Update Sentiment Animation
-let number=document.getElementById('number');
-let counter=0;
-let sentimentScore=60;
-let latetime=0
-
-setInterval(()=>{
-  if(counter==sentimentScore){
-    clearInterval();
-  }else{
-    counter+=1;
-    number.innerHTML=counter+'%';
-  }
-  updateSentimentAnimation();
-  latetime=timeIntervals[sentimentScore];
-},25)
-
-
-function updateSentimentAnimation() {
-   const newOffset = 530-(530*(sentimentScore/100));
-   document.documentElement.style.setProperty('--dash-offset', newOffset);
+  
 }
 
 
 function sendReviewToBackend(reviewText) {
   const requestBody = { text: reviewText };
 
-  fetch('/reviews_sentiment', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
+  fetch("/reviews_sentiment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
   })
-  .then(response => response.json())
-  .then(data => {
-      updateProgressBar(data.positive, data.negative);
-      updateLabels(data.positive, data.negative);
-      console.log('Review sentiment analyzed successfully');
-  })
-  .catch(error => console.error('Error:', error));
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error analyzing review sentiment:", error);
+      throw error; // Propagate the error
+    });
+}
+
+async function updatePositiveReviewsCount() {
+  try {
+    const response = await fetch("/get_global_positive_count");
+    const data = await response.json();
+    positiveReviewsCount = data.positive_count; 
+    console.log("Updated positiveReviewsCount:", positiveReviewsCount);
+  } catch (error) {
+    console.error("Error updating positiveReviewsCount:", error);
+  }
+}
+
+
+
+// Function to Update Sentiment Animation
+let number = document.getElementById("number");
+let counter = 0;
+let sentimentScore = positiveReviewsCount * 20;
+console.log("Function2 Reviews Count:", positiveReviewsCount);
+let latetime = 0;
+
+function updateSentimentAnimation() {
+  counter = 0;
+  sentimentScore = positiveReviewsCount * 20;
+  const newOffset = 530 - 530 * (sentimentScore / 100);
+  document.documentElement.style.setProperty("--dash-offset", newOffset);
+  let animationInterval;
+
+  clearInterval(animationInterval);
+
+  animationInterval = setInterval(() => { // Assign the interval to the variable
+    if (counter >= sentimentScore) {
+      clearInterval(animationInterval);
+    } else {
+      counter += 1;
+      number.innerHTML = counter + "%";
+    }
+  }, 50); 
+}
+
+// Function to Reset Animation
+function resetAnimation() {
+  // Reset fields
+  document.getElementById("place-name").innerText = "";
+  document.getElementById("address").innerText = "";
+  document.getElementById("phone-number").innerText = "";
+  document.getElementById("website").href = "#";
+  document.getElementById("website").innerText = "";
+  document.getElementById("rating").innerText = "";
+
+  // Reset the number displayed
+  number.innerHTML = "0%";
+
+  document.documentElement.style.setProperty("--dash-offset", 530);
+
+  // Clear any existing animation interval
+  clearInterval(animationInterval);
+  
 }
