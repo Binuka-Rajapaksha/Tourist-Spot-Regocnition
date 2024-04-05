@@ -1,3 +1,5 @@
+// script.js
+
 ScrollReveal({
   mobile: false,
 }
@@ -148,3 +150,5 @@ navlists.forEach((xy) => {
     toogleOn.classList.remove('toggleOnClose');
   });
 });
+
+

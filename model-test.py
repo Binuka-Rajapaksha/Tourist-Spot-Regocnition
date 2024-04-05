@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from sentiment import preprocessing, vectorizer, get_prediction
+from logger import logging
 from keras.models import load_model
 from keras.preprocessing import image
 from keras.applications.inception_v3 import preprocess_input
@@ -9,15 +11,17 @@ import re
 
 app = Flask(__name__)
 
+logging.info('Flask server started')
+
 # MySQL connection parameters
 mysql_host = 'localhost'
 mysql_user = 'root'
-mysql_password = 'rootpassword'  # If you didn't change the default password, just put ''
-mysql_database = 'userdb'  # Name of the database
+mysql_password = ''  
+mysql_database = 'userdb'  
 
 
 # Load the trained model
-model_path = 'C:/Users/rmdmc/OneDrive/Desktop/Study Materials/2nd Year/DSGP/Model/Our Dataset/InceptionV3_final.keras'
+model_path = 'E:\InceptionV3_final.keras'
 model = load_model(model_path)
 
 
@@ -51,8 +55,8 @@ def predict_class(image_path, threshold=0.85):
 # Map the predicted class index to the class label
 class_labels = ['Abhayagiriya', 'Adam_s Peak', 'Colombo Municipal Council', 'Colombo National Museum',
                 'Galle Light House', 'Gampola Kingdom_s Ambuluwawa Tower', 'Lotus Tower', 'Maligawila Buddha Statue',
-                'Nine Arch Bridge', 'Polonnaruwa watadageya', 'Ranmasu Uyana', 'Red Mosque', 'Ruwanwelisaya',
-                'Sigiriya Rock', 'Temple of Tooth Relic', 'Thuparamaya Dagaba']
+                'Nine Arch Bridge', 'Polonnaruwa watadageya', 'Ranmasu Uyana', 'Jami Ul-Alfar Mosque', 'Ruwanwelisaya',
+                'Sigiriya Rock', 'Sri Dalada Maligawa', 'Thuparamaya Dagaba']
 
 
 @app.route('/')
@@ -171,6 +175,53 @@ def process_image():
     finally:
         # Remove the temporary image file
         os.remove(img_path)
+
+
+# Global variables for Sentiment Analysis
+data = dict()
+reviews = []
+positive = 0
+negative = 0
+
+# Function for Sentiment Analysis
+@app.route("/reviews_sentiment", methods=['POST']) 
+def reviews_sentiment():
+    text = request.json['text']
+    logging.info(f'Text : {text}')
+
+    preprocessed_txt = preprocessing(text)
+    vectorized_txt = vectorizer(preprocessed_txt)
+    prediction = get_prediction(vectorized_txt)
+
+    if prediction == 'negative':
+        global negative
+        negative += 1
+    else:
+        global positive
+        positive += 1
+
+    reviews.insert(0, text)
+    logging.info(f'All Negative: {negative} All Positive:{positive}')
+    
+    # Return sentiment counts along with the response
+    return jsonify({'positive': positive, 'negative': negative})
+
+
+# Function to Get the no of Positive Reviews
+@app.route("/get_global_positive_count", methods=['GET'])
+def get_global_positive_count():
+    global positive
+    return jsonify({'positive_count': positive})
+
+# Function to Clear Global Variables
+@app.route("/clear_global_variables", methods=['POST'])
+def clear_global_variables():
+    global positive, negative, reviews
+    positive = 0
+    negative = 0
+    reviews = []
+    logging.info('Global variables cleared')
+    return jsonify({'message': 'Global variables cleared'})
 
 
 if __name__ == '__main__':
