@@ -10,7 +10,7 @@
 }
 
 .main {
-  background: url(/static/images/Background/Sigiriya.png) no-repeat center center/cover;
+  background: url(../images/Background/Sigiriya.png) no-repeat center center/cover;
   min-height: 800px;
   border-radius: 0 0 50px 50px;
 }
