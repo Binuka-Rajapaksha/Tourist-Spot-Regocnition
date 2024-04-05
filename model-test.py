@@ -55,8 +55,8 @@ def predict_class(image_path, threshold=0.85):
 # Map the predicted class index to the class label
 class_labels = ['Abhayagiriya', 'Adam_s Peak', 'Colombo Municipal Council', 'Colombo National Museum',
                 'Galle Light House', 'Gampola Kingdom_s Ambuluwawa Tower', 'Lotus Tower', 'Maligawila Buddha Statue',
-                'Nine Arch Bridge', 'Polonnaruwa watadageya', 'Ranmasu Uyana', 'Red Mosque', 'Ruwanwelisaya',
-                'Sigiriya Rock', 'Temple of Tooth Relic', 'Thuparamaya Dagaba']
+                'Nine Arch Bridge', 'Polonnaruwa watadageya', 'Ranmasu Uyana', 'Jami Ul-Alfar Mosque', 'Ruwanwelisaya',
+                'Sigiriya Rock', 'Sri Dalada Maligawa', 'Thuparamaya Dagaba']
 
 
 @app.route('/')
