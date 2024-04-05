@@ -143,12 +143,20 @@ function ekUpload() {
 
 ekUpload();
 
-// Function to Close the Results Container
+
+
+/*-----------------------------------*\
+ * Close Resulyts Function
+\*-----------------------------------*/
 function closeResults() {
   document.getElementById("results-container").style.display = "none";
 }
 
-// Function to Process the Image
+
+
+/*-----------------------------------*\
+ * Process Image Function
+\*-----------------------------------*/
 function processImage() {
   var resultText = "Colombo Municipal Council"; // Only for testing
   var inputElement = document.getElementById("file-upload");
@@ -200,7 +208,6 @@ function processImage() {
 
         // Reset animation parameters
         resetAnimation();
-
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -212,15 +219,14 @@ function processImage() {
 
 
 
-
-// script.js
 let map;
 let marker;
-
 // Keep track of the currently selected place ID
 let selectedPlaceId;
 
-// Initialize and Add the Map
+/*-----------------------------------*\
+ * Search Places Function
+\*-----------------------------------*/
 function searchPlaces(place_name) {
   const keyword = place_name;
 
@@ -244,6 +250,10 @@ function searchPlaces(place_name) {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
+
+/*-----------------------------------*\
+ * Show Location Function
+\*-----------------------------------*/
 function showLocationOnMap(data) {
   selectedPlaceId = data.results[0].place_id;
   const location = data.results[0].geometry.location;
@@ -266,9 +276,9 @@ function showLocationOnMap(data) {
 
 
 
-
-
-// Function to Get Place Details
+/*-----------------------------------*\
+ * getPlaceDetails Function
+\*-----------------------------------*/
 function getPlaceDetails() {
   if (!selectedPlaceId) {
     alert("No place selected");
@@ -289,7 +299,10 @@ function getPlaceDetails() {
 
 let positiveReviewsCount = 0;
 
-// Function to Get Place Details
+
+/*-----------------------------------*\
+ * Display Place Details Function
+\*-----------------------------------*/
 function displayPlaceDetails(placeDetails) {
   console.log("Place Details API Response:", placeDetails);
 
@@ -314,10 +327,12 @@ function displayPlaceDetails(placeDetails) {
     updatePositiveReviewsCount(); // Update the positive reviews count
     setTimeout(updateSentimentAnimation, 1000);
   });
-  
 }
 
 
+/*-----------------------------------*\
+ * Send Review to Backend Function
+\*-----------------------------------*/
 function sendReviewToBackend(reviewText) {
   const requestBody = { text: reviewText };
 
@@ -335,20 +350,23 @@ function sendReviewToBackend(reviewText) {
     });
 }
 
+/*-----------------------------------*\
+ * updatePositiveReviewsCount Function
+\*-----------------------------------*/
 async function updatePositiveReviewsCount() {
   try {
     const response = await fetch("/get_global_positive_count");
     const data = await response.json();
-    positiveReviewsCount = data.positive_count; 
+    positiveReviewsCount = data.positive_count;
     console.log("Updated positiveReviewsCount:", positiveReviewsCount);
   } catch (error) {
     console.error("Error updating positiveReviewsCount:", error);
   }
 }
 
-
-
-// Function to Update Sentiment Animation
+/*-----------------------------------*\
+ * Functions for Sentiment Animation
+\*-----------------------------------*/
 let number = document.getElementById("number");
 let counter = 0;
 let sentimentScore = positiveReviewsCount * 20;
@@ -364,14 +382,15 @@ function updateSentimentAnimation() {
 
   clearInterval(animationInterval);
 
-  animationInterval = setInterval(() => { // Assign the interval to the variable
+  animationInterval = setInterval(() => {
+    // Assign the interval to the variable
     if (counter >= sentimentScore) {
       clearInterval(animationInterval);
     } else {
       counter += 1;
       number.innerHTML = counter + "%";
     }
-  }, 50); 
+  }, 50);
 }
 
 // Function to Reset Animation
@@ -391,5 +410,4 @@ function resetAnimation() {
 
   // Clear any existing animation interval
   clearInterval(animationInterval);
-  
 }

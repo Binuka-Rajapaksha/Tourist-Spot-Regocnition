@@ -16,8 +16,8 @@ logging.info('Flask server started')
 # MySQL connection parameters
 mysql_host = 'localhost'
 mysql_user = 'root'
-mysql_password = ''  # If you didn't change the default password, just put ''
-mysql_database = 'userdb'  # Name of the database
+mysql_password = ''  
+mysql_database = 'userdb'  
 
 
 # Load the trained model
@@ -177,35 +177,13 @@ def process_image():
         os.remove(img_path)
 
 
+# Global variables for Sentiment Analysis
 data = dict()
 reviews = []
 positive = 0
 negative = 0
 
-@app.route("/", methods = ['post'])
-def my_post():
-    text = request.form['text']
-    logging.info(f'Text : {text}')
-
-    preprocessed_txt = preprocessing(text)
-    logging.info(f'Preprocessed Text : {preprocessed_txt}')
-
-    vectorized_txt = vectorizer(preprocessed_txt)
-    logging.info(f'Vectorized Text : {vectorized_txt}')
-
-    prediction = get_prediction(vectorized_txt)
-    logging.info(f'Prediction : {prediction}')
-
-    if prediction == 'negative':
-        global negative
-        negative += 1
-    else:
-        global positive
-        positive += 1
-    
-    reviews.insert(0, text)
-    return redirect(request.url)
-
+# Function for Sentiment Analysis
 @app.route("/reviews_sentiment", methods=['POST']) 
 def reviews_sentiment():
     text = request.json['text']
@@ -228,11 +206,14 @@ def reviews_sentiment():
     # Return sentiment counts along with the response
     return jsonify({'positive': positive, 'negative': negative})
 
+
+# Function to Get the no of Positive Reviews
 @app.route("/get_global_positive_count", methods=['GET'])
 def get_global_positive_count():
     global positive
     return jsonify({'positive_count': positive})
 
+# Function to Clear Global Variables
 @app.route("/clear_global_variables", methods=['POST'])
 def clear_global_variables():
     global positive, negative, reviews
