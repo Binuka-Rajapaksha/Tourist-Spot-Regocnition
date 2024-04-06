@@ -368,6 +368,7 @@ async function updatePositiveReviewsCount() {
  * Functions for Sentiment Animation
 \*-----------------------------------*/
 let number = document.getElementById("number");
+let score = document.getElementById("score");
 let counter = 0;
 let sentimentScore = positiveReviewsCount * 20;
 console.log("Function2 Reviews Count:", positiveReviewsCount);
@@ -389,6 +390,7 @@ function updateSentimentAnimation() {
     } else {
       counter += 1;
       number.innerHTML = counter + "%";
+      score.innerHTML = counter + "%";
     }
   }, 50);
 }
@@ -405,6 +407,7 @@ function resetAnimation() {
 
   // Reset the number displayed
   number.innerHTML = "0%";
+  score.innerHTML = "0%";
 
   document.documentElement.style.setProperty("--dash-offset", 530);
 

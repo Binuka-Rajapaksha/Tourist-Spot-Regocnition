@@ -409,7 +409,9 @@ svg{
 
 .sentiment-title p{
   margin-top: 10px;
+  margin-left: -20px;
   font-size: 20px;
   font-family: "Roboto", sans-serif;
   text-align: center;
 }
+
