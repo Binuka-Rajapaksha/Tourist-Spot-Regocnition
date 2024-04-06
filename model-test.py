@@ -87,7 +87,6 @@ def login():
 
         except MySQLdb.Error as e:
             # Handle MySQL errors
-            message = f"Error accessing MySQL: {e}"
             print(f"Error accessing MySQL: {e}")
             message = "Error accessing MySQL"
 
@@ -129,7 +128,6 @@ def register():
                         return render_template('Index.html', message=signup_message)
         except MySQLdb.Error as e:
             # Handle MySQL errors
-            signup_message = f"Error accessing MySQL: {e}"
             print(f"Error accessing MySQL: {e}")
             signup_message = "Error accessing MySQL"
 
