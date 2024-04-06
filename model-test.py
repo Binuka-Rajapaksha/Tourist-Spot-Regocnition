@@ -83,11 +83,12 @@ def login():
                         message = 'Logged in successfully !'
                         return render_template('Index.html', message=message)
                     else:
-                        message = 'Please enter correct email / password !'
+                        message = 'Invalid email / password !'
 
         except MySQLdb.Error as e:
             # Handle MySQL errors
-            message = f"Error accessing MySQL: {e}"
+            print(f"Error accessing MySQL: {e}")
+            message = "Error accessing MySQL"
 
     print(message)
 
@@ -127,7 +128,8 @@ def register():
                         return render_template('Index.html', message=signup_message)
         except MySQLdb.Error as e:
             # Handle MySQL errors
-            signup_message = f"Error accessing MySQL: {e}"
+            print(f"Error accessing MySQL: {e}")
+            signup_message = "Error accessing MySQL"
 
     elif request.method == 'POST':
         signup_message = 'Please fill out the form !'
@@ -140,7 +142,7 @@ def home():
     return render_template('Index.html')
 
 
-@app.route('/explorer.html/')
+@app.route('/explorer.html')
 def index():
     return render_template('explorer.html')
 
@@ -170,6 +172,7 @@ def process_image():
         return jsonify({'result': predicted_label})
 
     except Exception as e:
+        print(f"Error processing image: {e}")
         return jsonify({'result': 'Error processing image'})
 
     finally:
